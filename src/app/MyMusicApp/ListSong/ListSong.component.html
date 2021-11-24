@@ -1,0 +1,90 @@
+<div class="container">
+  <div *ngIf="data != null" >
+    <h2 >Songs list: </h2>
+    <div class="row">
+     <div class="col-3 text-left mt-4">
+    <h6>Search songs by name : </h6>
+    <br>
+    <input class="binput" type="text" [(ngModel)]="songname" (input)="Search()">
+    <br>
+     </div>
+    <div class="col-3 text-left mt-4">
+    <h6>Search songs by artist name : </h6>
+    <br>
+    <input class="binput" type="text" [(ngModel)]="artistname" (input)="SearchArtist()">
+    <br>
+     </div>
+    <div class="col-6 text-center mt-4">
+      <h3>If you want add new song!</h3>
+      <a class="btn btn-info mt-4" routerLink="/add">Add new song</a>
+    </div>
+  </div>
+  <table class="table table-striped mt-4">
+    <thead>
+    <tr>
+      <th scope="col" (click)="Sort('name')">Name&nbsp;<i class="fa fa-sort"></i></th>
+      <th scope="col">Artist Name</th>
+      <th scope="col" (click)="Sort('rating')">Rating&nbsp;<i class="fa fa-sort"></i></th>
+      <th scope="col">Edit</th>
+      <th scope="col">Details</th>
+      <th scope="col">Remove</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let song of data | orderBy: key: reverse | paginate: { itemsPerPage: 5, currentPage: page }">
+      <td >{{ song.name }}</td>
+      <td>{{ song.artistName }}</td>
+      <td>{{ song.rating  }}</td>
+      <td><a class="btn btn-info" (click)="uredi(song.id)" >Edit</a></td>
+      <td><button class="btn btn-info" (click)="open(content,song)">Details</button></td>
+     <td><a class="btn btn-danger" (click)="obrisi(song)">Delete</a></td>
+    </tr>
+    </tbody>
+    <br>
+      <pagination-controls (pageChange)="page = $event"></pagination-controls>
+  </table>
+  </div>
+<!--  <div class="container" *ngIf="EditSong != null">
+    <app-EditSong [editsong]="EditSong"></app-EditSong>
+
+  </div>-->
+</div>
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title text-info" id="modal-basic-title">Song details</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+   <div>
+     <h4>Song name: {{selectedsong?.name}}</h4>
+     <h6>Artist name: {{selectedsong?.artistName}}</h6>
+     <h6>Category: {{selectedcategory}}</h6>
+     <h6>Rating: {{selectedsong?.rating}}</h6>
+     <h6>Entered date: {{selectedsong?.entredDAte | date}}</h6>
+     <h6>Edit date: {{selectedsong?.editDate | date}}</h6>
+     <div *ngIf="selectedsong?.isFavourite == true">
+       <h6>Favourite: Yes</h6>
+     </div>
+     <div *ngIf="selectedsong?.isFavourite == false">
+      <h6>Favourite: No</h6>
+    </div>
+     <h6>Song url: <a href={{selectedsong.songUrl}}>
+      {{selectedsong.songUrl}}</a> </h6>
+<div>
+
+            </div>
+   </div>
+  </div>
+  <div class="modal-footer">
+   <h6 class="text-info">Music is life!</h6>
+  </div>
+</ng-template>
+
+
+
+<hr>
+
+<pre>{{ closeResult }}</pre>

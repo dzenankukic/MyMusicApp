@@ -1,0 +1,11 @@
+<div class="container">
+  <div *ngIf="loggedin()" class="text-right">
+<h6>Your are logged in,wellcome</h6>
+<a class="btn btn-info" (click)="logout()">Logout</a>
+</div>
+<div *ngIf="!loggedin()">
+  <h2>Please login to find song list!</h2>
+  <a class="btn btn-info" routerLink='/login'>Login</a>
+</div>
+</div>
+

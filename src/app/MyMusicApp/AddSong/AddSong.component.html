@@ -1,0 +1,221 @@
+<div style="width: 400px; margin: auto;">
+  <div class="submit-form">
+    <div *ngIf="!submitted" class="text-center">
+      <h2 class="text-center mt-4">Add new song</h2>
+      <div *ngIf="invaliddata" class="alert alert-danger">Invalid data, please check all inputs!</div>
+      <div class="form-group">
+        <label for="addsong.name">Name: </label>
+        <input
+          type="text"
+          class="form-control"
+          id="addsong.name"
+          required
+          [(ngModel)]="addsong.name"
+          name="addsong.name"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="addsong.songUrl">SongUrl: </label>
+        <input
+          class="form-control"
+          id="addsong.songUrl"
+          required
+          [(ngModel)]="addsong.songUrl"
+          name="addsong.songUrl"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="addsong.categoryID">Category: </label> <br>
+        <select [(ngModel)]="addsong.categoryID">
+          <option *ngFor="let catid of SelectCategory" [value]="catid.id">
+            {{catid.name}}
+          </option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="addsong.artistName">Artist name: </label>
+        <input
+          class="form-control"
+          id="addsong.artistName"
+          required
+          [(ngModel)]="addsong.artistName"
+          name="addsong.artistName"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="addsong.rating">Rating(1-5): </label>
+        <input
+          class="form-control"
+          id="addsong.rating"
+          required
+          [(ngModel)]="addsong.rating"
+          name="addsong.rating"
+        />
+      </div>
+
+      <div class="form-group mx-auto center-block" >
+        <label for="addsong.isFavourite">Favourite: </label>
+        <input style="width: 50px; height: 50px; margin:auto;"
+          type="checkbox"
+          (change)="checkfalse = !checkfalse"
+          class="form-control"
+          id="addsong.isFavourite"
+          required
+          [(ngModel)]="addsong.isFavourite"
+          name="addsong.isFavourite"
+        />
+      </div>
+      <div class="form-group">
+        <label class="form-label">Entered date: </label>
+    <label readonly name="addsong.entredDAte" class="form-control">{{addsong.entredDAte | date }}</label>
+      </div>
+
+
+      <button (click)="saveSong()" class="btn btn-primary">Submit</button>
+    </div>
+
+    <div *ngIf="submitted">
+      <h4>You submitted successfully!</h4>
+      <button class="btn btn-primary" (click)="newSong()">Add new</button>
+      <button class="btn btn-info" routerLink="/list">Back to list</button>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--
+  DATAPICKER
+  <hr/>
+
+<button class="btn btn-sm btn-outline-primary mr-2" (click)="selectToday()">Select Today</button>
+<button class="btn btn-sm btn-outline-primary mr-2" (click)="dp.navigateTo()">To current month</button>
+<button class="btn btn-sm btn-outline-primary mr-2" (click)="dp.navigateTo({year: 2013, month: 2})">To Feb 2013</button>
+
+<hr/>
+
+
+
+
+  <div class="container">
+  <div class="row mt-4">
+    <div class="col-4"></div>
+    <div class="col-4 mt-4">
+
+<h2>Add new service for car</h2>
+      <form #userForm="ngForm" (ngSubmit)="onSubmit()">
+  <div class="form-group">
+    <input hidden type = "number" name="id" id="id" placeholder="id" ngModel>
+    <select class="form-control" type = "text" name="name" id="name" placeholder="name" ngModel
+  (change)="getkategorije()">
+      <option *ngFor="let s of SelectCategory" [value]="s.value">{{s.text}}</option>
+    </select>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Warnings: </label>
+          <input [(ngModel)]="AddSong.songUrl" type="text" name="AddSong.songUrl" class="form-control">
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Recommendations: </label>
+          <input [(ngModel)]="AddSong.name" name="AddSong.name" class="form-control">
+        </div>
+        <button type="submit" class="btn btn-warning">Submit</button>
+      </form>
+    </div>
+    <div class="col-4"></div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--
+  <h2>works</h2>
+  <div class="row">
+<div class="col-md-3"></div>
+<div class="col-md-6 text-center">
+  <h2 class="text-black-50">
+    Edit Song Details !
+  </h2>
+<form #songPost="ngForm">
+  <input hidden type = "number" name="id" id="id" placeholder="id" ngModel>
+  <select class="form-control" type = "text" name="name" id="name" placeholder="name" ngModel
+(change)="getkategorije()">
+    <option *ngFor="let s of SelectCategory" [value]="s.value">{{s.text}}</option>
+  </select>
+  <div class="mb-3">
+    <input hidden type = "text" name="name" id="name" placeholder="name" ngModel>
+    <label class="form-label">Name:</label>
+    <input type = "text" name="name" id="name" placeholder="name" ngModel  class="form-control">
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Artist name: </label>
+    <input readonly type = "text" name="artistName" id="artistName" placeholder="artistName" ngModel class="form-control">
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Rating: </label>
+    <input type = "number" name="rating" id="rating" placeholder="rating" ngModel class="form-control">
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Favourite: </label>
+    <input type = "text" name="songUrl" id="songUrl" placeholder="songUrl" ngModel class="form-control">
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Entred date: </label>
+    <input type = "text" name="" id="" placeholder="" ngModel class="form-control">
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Edit date: </label>
+    <input type = "text" name="" id="" placeholder="" ngModel class="form-control">
+  </div>
+  <div class="mb-3">
+    <label class="form-label">selectedCar</label>
+    <input type = "text" name="" id="" placeholder="" ngModel class="form-control">
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+ <button class="btn btn-warning" (click)="blist()" >Back to list</button>
+</form>
+</div>
+<div class="col-md-3"></div>
+</div>-->
